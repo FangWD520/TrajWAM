@@ -1,0 +1,7 @@
+TrajWAM is built with Qwen and uses DINOv3.
+
+Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c) Alibaba Cloud. All Rights Reserved.
+
+TrajWAM includes a fine-tuned Qwen2.5-VL-3B-based driving planner and additional trajectory-conditioning modules. The included DINOv3 teacher is an upstream frozen component. See licenses/ for the applicable model licenses.
+
+The code distribution builds on DeepSight, Hugging Face Transformers, Bench2Drive and CARLA; their copyright and license notices are retained.

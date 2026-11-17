@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use TrajWAM, please cite the accompanying paper."
+type: software
+title: "TrajWAM: Trajectory-Conditioned World Action Modeling for Vision–Language Driving"
+version: 1.0.0
+authors:
+  - family-names: Fang
+    given-names: Xuerui
+  - family-names: Kezierbieke
+    given-names: Gulimila
+  - name: "CHEN WANGXING"
+  - family-names: Li
+    given-names: Hui
+repository-code: "https://github.com/FangWD520/TrajWAM"
