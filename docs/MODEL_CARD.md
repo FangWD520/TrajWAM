@@ -26,15 +26,16 @@ it has not been validated for deployment on public roads.
 
 ## Files and provenance
 
-The release uses the selected `wam-stage1-v6/checkpoint-3542` model. Safetensors
-files are copied unchanged. Machine-specific paths in configuration files are
-replaced with portable values. Tokenizer, processor and generation settings are
-retained. Optimizer states, training logs and experimental datasets are excluded.
-Checksums accompany the checkpoint for download verification.
+The release uses the selected `wam-stage1-v6/checkpoint-3542` model. The supplied
+runtime loads its safetensors files unchanged and resolves the DINO constructor
+configuration using the configuration bundled with the code. Tokenizer,
+processor and generation settings come from the checkpoint. Optimizer states
+and training logs are unnecessary for inference. Model-shard checksums are
+provided in [WEIGHT_SHARDS_SHA256SUMS](WEIGHT_SHARDS_SHA256SUMS).
 
 ## Licenses
 
 The Qwen-derived weights use the [Qwen Research License](../licenses/QWEN_RESEARCH_LICENSE.txt).
 The included DINOv3 component uses the [DINOv3 License](../licenses/DINOV3_LICENSE.md).
-Their terms and [NOTICE](../NOTICE) accompany the checkpoint. Upstream code
+Their terms and [NOTICE](../NOTICE) are included in this repository. Upstream code
 attribution appears in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
