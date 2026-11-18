@@ -11,7 +11,7 @@ Xuerui Fang<sup>1</sup> · Gulimila Kezierbieke<sup>1,*</sup> · CHEN WANGXING<s
 ³ Jiangnan University<br>
 \* Corresponding authors
 
-[Overview](#overview) · [Method](#method) · [Results](#results) · [Model download](docs/MODEL_DOWNLOAD.md) · [Evaluation guide](docs/REPRODUCIBILITY.md)
+[Overview](#overview) · [Method](#method) · [Results](#results) · [Visualization](#visualization) · [Model download](docs/MODEL_DOWNLOAD.md) · [Evaluation guide](docs/REPRODUCIBILITY.md)
 
 **91.53 Driving Score · 75.45% Success Rate · All 220 Bench2Drive routes**
 
@@ -70,36 +70,40 @@ The following reproduces **Table 1 of the paper**. Prior-method results are take
 
 TrajWAM has the highest DS and SR among the methods listed in this table: **+2.38 DS** over SparseDriveV2 and **+2.72 SR percentage points** over DynVLA.
 
-### Component ablation on 220 routes
+### Multi-ability evaluation
 
-These Phase-II variants share the Phase-I starting checkpoint and the same 24-epoch training budget. This table reproduces **Table 3 of the paper** and uses training seed 42.
+**Table 2 of the paper.** Scores are percentages; higher is better. The table reports five driving abilities and their reported mean. Bold values mark the highest score in each ability column. Venue and expert-feature distillation (`*`) follow Table 1.
 
-| Method | Factual DINO supervision | Trajectory conditioning | Query separation | DS ↑ | SR (%) ↑ |
-| --- | :---: | :---: | :---: | ---: | ---: |
-| Base Planner (planning-only FT) | — | — | — | 86.22 | 71.36 |
-| Base Planner (unconditioned future FT) | ✓ | — | — | 85.34 | 73.18 |
-| TrajWAM w/o separation | ✓ | ✓ | — | 89.34 | 74.55 |
-| **TrajWAM** | ✓ | ✓ | ✓ | **91.53** | **75.45** |
+| Method | Venue | Paradigm | Merging ↑ | Overtaking ↑ | Emergency Brake ↑ | Give Way ↑ | Traffic Sign ↑ | Mean ↑ |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TCP* | NeurIPS '22 | E2E | 16.18 | 20.00 | 20.00 | 10.00 | 6.99 | 14.63 |
+| ThinkTwice* | CVPR '23 | E2E | 27.38 | 18.42 | 35.82 | **50.00** | 54.23 | 37.17 |
+| DriveAdapter* | ICCV '23 | E2E | 28.82 | 26.38 | 48.76 | **50.00** | 56.43 | 42.08 |
+| AD-MLP | arXiv '23 | E2E | 0.00 | 0.00 | 0.00 | 0.00 | 4.35 | 0.87 |
+| UniAD-Base | CVPR '23 | E2E | 14.10 | 17.78 | 21.67 | 10.00 | 14.21 | 15.55 |
+| VAD | ICCV '23 | E2E | 8.11 | 24.44 | 18.64 | 20.00 | 19.15 | 18.07 |
+| DriveTransformer | ICLR '25 | E2E | 17.57 | 35.00 | 48.36 | 40.00 | 52.10 | 38.60 |
+| SparseDriveV2 | ECCV '26 | E2E | 66.25 | 75.55 | 75.00 | **50.00** | 71.57 | 67.67 |
+| ReasonPlan | CoRL '25 | VLM | 37.50 | 26.67 | 33.30 | 40.00 | 45.79 | 36.66 |
+| ORION | ICCV '25 | VLM | 25.00 | 71.11 | 78.33 | 30.00 | 69.15 | 54.72 |
+| SimLingo | CVPR '25 | VLM | 60.00 | 60.00 | 78.33 | **50.00** | **77.89** | 65.25 |
+| DeepSight | ICML '26 | VLM | 60.00 | **91.11** | 78.33 | **50.00** | 71.58 | **70.20** |
+| UniDrive-WM | ECCV '26 | WM | 29.97 | 74.64 | 79.98 | 40.00 | 71.54 | 59.23 |
+| GeRo-Qwen2.5VL | CVPR '26 | WM | 37.83 | 72.81 | **83.10** | **50.00** | 66.17 | 61.98 |
+| LVDrive | arXiv '26 | WAM | 39.74 | 69.89 | 71.67 | 20.00 | 74.21 | 54.90 |
+| **TrajWAM (Ours)** | This work | WAM | **75.00** | 82.22 | 65.00 | **50.00** | 77.37 | 69.92 |
 
-Trajectory conditioning adds **4.00 DS points** over unconditioned future supervision. Adding separation contributes another **2.19 DS points**.
+TrajWAM achieves **75.00% Merging** and **50.00% Give Way**, the highest and joint-highest scores in the table. It ranks second in Overtaking (**82.22%**), Traffic Sign (**77.37%**) and mean ability (**69.92%**).
 
-<details>
-<summary><strong>Matched two-seed evaluation on a fixed 120-route subset</strong></summary>
+## Visualization
 
-The subset covers all 44 scenario types. All rows share the Phase-I initialization and 24-epoch training budget. Values below reproduce **Table 4 of the paper**; the last column reports the mean and sample standard deviation over training seeds 42 and 43.
+### Closed-loop driving: TrajWAM and DeepSight
 
-| Training variant | Seed 42 DS ↑ | Seed 43 DS ↑ | Mean DS ± SD |
-| --- | ---: | ---: | ---: |
-| Planning-only FT | 82.64 | 83.16 | 82.90 ± 0.37 |
-| Unconditioned future FT | 82.11 | 82.49 | 82.30 ± 0.27 |
-| TrajWAM w/o separation | 86.28 | 86.52 | 86.40 ± 0.17 |
-| TrajWAM (additive) | 86.07 | 85.83 | 85.95 ± 0.17 |
-| **TrajWAM (correct pairing)** | **88.69** | **88.21** | **88.45 ± 0.34** |
-| Shuffled pairing | 84.02 | 84.38 | 84.20 ± 0.25 |
+The three cases below compare TrajWAM with DeepSight under matching route, scenario and weather configurations. **TrajWAM is the upper row and DeepSight is the lower row in each case.** Arrows indicate chronological order; timestamps and speeds are shown in the figure.
 
-The full method improves mean DS by **5.55** over planning-only FT and **4.25** over shuffled pairing. For the four paired component comparisons, conditional DS intervals lie above zero and SR intervals include zero, as reported in the paper's supplementary analysis.
+[![Three closed-loop comparisons between TrajWAM and DeepSight, showing the progression of each driving episode](docs/assets/closed_loop_comparison.png)](docs/assets/closed_loop_comparison.png)
 
-</details>
+TrajWAM completes all three selected routes successfully. The recorded DeepSight outcomes are **(a) vehicle collision**, **(b) collision and route deviation**, and **(c) blocked-agent termination**. The panels show nearby ego positions in (a), equal elapsed times in (b), and independent time sequences in (c) to illustrate progression versus persistent standstill. Click the figure to inspect the full-resolution frames and timeline.
 
 ## Code and checkpoint
 
