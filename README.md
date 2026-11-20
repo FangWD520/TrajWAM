@@ -112,12 +112,12 @@ This release provides the **closed-loop evaluation runtime**: checkpoint loading
 | Resource | Location |
 | --- | --- |
 | Environment, simulator and evaluation instructions | [Reproduction guide](docs/REPRODUCIBILITY.md) |
-| Trained checkpoint | [Baidu Netdisk](https://pan.baidu.com/s/1g3IKG6s-EMRdyhz7N7jW1Q?pwd=1234), extraction code **1234** |
+| Trained checkpoint | [Baidu Netdisk](https://pan.baidu.com/s/10GRbfS7DTxYw7yINi5rpQw?pwd=1234), extraction code **1234** |
 | Checkpoint preparation and verification | [Download instructions](docs/MODEL_DOWNLOAD.md) |
 | Model details and intended use | [Model card](docs/MODEL_CARD.md) |
 | Training dataset resources | [Official Bench2Drive repository](https://github.com/Thinklab-SJTU/Bench2Drive#dataset) |
 
-Use the complete `wam-stage1-v6/checkpoint-3542` directory from the shared checkpoint files, including both safetensors shards and all configuration, tokenizer and processor files. The reproduction guide includes integrity checks and model-loading checks.
+Extract `TrajWAM-v1.0.0.zip` and use the complete `TrajWAM-v1.0.0/` directory, including both safetensors shards and all configuration, tokenizer and processor files. The reproduction guide includes integrity checks and model-loading checks.
 
 ## Quick start
 
@@ -136,7 +136,7 @@ Follow the [model download instructions](docs/MODEL_DOWNLOAD.md), then check the
 
 ```bash
 python scripts/check_environment.py \
-  --checkpoint /absolute/path/to/wam-stage1-v6/checkpoint-3542 \
+  --checkpoint /absolute/path/to/TrajWAM-v1.0.0 \
   --files-only
 ```
 
@@ -147,7 +147,7 @@ After environment and simulator setup, launch evaluation on four GPUs:
 ```bash
 python scripts/evaluate_multigpu.py \
   --gpus 0,1,2,3 \
-  --checkpoint /absolute/path/to/wam-stage1-v6/checkpoint-3542 \
+  --checkpoint /absolute/path/to/TrajWAM-v1.0.0 \
   --output /absolute/path/to/results/trajwam220
 ```
 

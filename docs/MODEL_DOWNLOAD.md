@@ -1,15 +1,14 @@
 # Model download
 
-Download the trained checkpoint from [Baidu Netdisk](https://pan.baidu.com/s/1g3IKG6s-EMRdyhz7N7jW1Q?pwd=1234).
+Download `TrajWAM-v1.0.0.zip` from [Baidu Netdisk](https://pan.baidu.com/s/10GRbfS7DTxYw7yINi5rpQw?pwd=1234).
 
-**Extraction code: `1234`.** Use the complete
-`wam-stage1-v6/checkpoint-3542` directory from the shared files.
+**Baidu Netdisk access code: `1234`.**
 The checkpoint files are hosted separately from this Git repository.
 
 After downloading and extracting the files, verify the two model shards:
 
 ```bash
-cd /absolute/path/to/wam-stage1-v6/checkpoint-3542
+cd /absolute/path/to/TrajWAM-v1.0.0
 sha256sum -c /absolute/path/to/TrajWAM/docs/WEIGHT_SHARDS_SHA256SUMS
 ```
 
